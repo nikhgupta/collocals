@@ -45,3 +45,4 @@ end
 
 
 gem 'pry-rails', group: [:test, :development]
+gem 'bootstrap-generators'

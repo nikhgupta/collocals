@@ -46,3 +46,4 @@ end
 
 gem 'pry-rails', group: [:test, :development]
 gem 'bootstrap-generators'
+gem 'high_voltage'

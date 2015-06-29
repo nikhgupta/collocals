@@ -49,3 +49,5 @@ gem 'bootstrap-generators'
 gem 'high_voltage'
 gem 'rspec-rails', group: [:test, :development]
 gem 'pundit'
+gem 'sidekiq'
+gem 'sinatra', require: false

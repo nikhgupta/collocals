@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use postgresql as the database for Active Record
@@ -16,7 +15,8 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+# Turbolinks makes following links in your web application faster.
+# Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -33,21 +33,57 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop execution
+  # and get a debugger console
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # Spring speeds up development by keeping your application running in the
+  # background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
 
-
-gem 'pry-rails', group: [:test, :development]
+# added via Creation gem
 gem 'bootstrap-generators'
 gem 'high_voltage'
-gem 'rspec-rails', group: [:test, :development]
 gem 'pundit'
 gem 'sidekiq'
 gem 'sinatra', require: false
+
+group :test, :development do
+  gem 'dotenv-rails'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'terminal-notifier-guard'
+  gem 'terminal-notifier'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'shoulda-matchers'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'simplecov', require: false
+  gem 'email_spec'
+  gem 'launchy'
+end
+
+# app specific
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-github'
+gem 'omniauth-linkedin-oauth2'
+gem 'omniauth-foursquare'
+gem 'font-awesome-rails'

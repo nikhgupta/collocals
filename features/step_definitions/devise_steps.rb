@@ -38,6 +38,10 @@ Given /^I am a new, authenticated, and confirmed user$/ do
   step "I am logged in user with email \"notexistant@email.com\""
 end
 
+Given /^user with email address "(.*?)" exists$/ do |email|
+  create(:confirmed_user, email: email)
+end
+
 Given /^I (?:am logged in user|log ?in) with email "(.*?)"$/ do |email|
   user = User.find_by(email: email) || create(:confirmed_user, email: email)
   visit new_user_session_path

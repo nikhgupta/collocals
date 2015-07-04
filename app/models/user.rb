@@ -8,12 +8,20 @@ class User < ActiveRecord::Base
       :facebook, :twitter, :google, :github, :linkedin, :foursquare
     ]
 
-  def self.from_omniauth(auth)
+  def self.confirm_via_omniauth(auth)
     auth = Extractor::Base.load(auth)
-    user = new name: auth.name, email: auth.email, password: Devise.friendly_token[0,20]
-    user.skip_confirmation! if user.email.present?
-    user.save
-    user
+    find_by(email: auth.email).tap do |user|
+      user.confirm if user.present?
+    end
+  end
+
+  def self.create_from_omniauth(auth)
+    auth = Extractor::Base.load(auth)
+    new(email: auth.email, name: auth.name).tap do |user|
+      user.password = user.password_confirmation = Devise.friendly_token[0,20]
+      user.skip_confirmation! if user.email.present?
+      user.save
+    end
   end
 
   def self.new_with_session(params, session)

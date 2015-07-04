@@ -8,7 +8,7 @@ When /^I sign in with provider "(.*?)"$/ do |provider|
   step "I should see link with text \"Sign in with #{provider.titleize}\""
   step "I click on \"Sign in with #{provider.titleize}\""
 end
-Given /^I have( not)? signed in with provider "(.*?)" before$/ do |negate, provider|
+Given /( not)? signed in with provider "(.*?)" before$/ do |negate, provider|
   non_email_sharing_providers = %w[twitter]
   if !negate && @current_user.present?
     step "I click to add provider \"#{provider}\" in my profile"

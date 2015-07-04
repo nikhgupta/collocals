@@ -16,8 +16,7 @@ class Identity < ActiveRecord::Base
   end
 
   def self.create_with_omniauth(auth)
-    data = Extractor::Base.load(auth).attributes_data
-    create data.merge(user: User.find_by(email: data[:email]))
+    create Extractor::Base.load(auth).attributes_data
   end
 
   def self.find_or_create_with_omniauth(auth)

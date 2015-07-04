@@ -33,15 +33,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     return if current_user
 
     if @identity.linked?
-      message = "Signed in via #{@identity.provider.titleize}!"
-      if @identity.email.present? && !@identity.user.confirmed?
-        @identity.user.confirm
-        message += " Confirmed email: #{@identity.email}!"
-      end
       sign_in @identity.user
-      redirect_to root_url, notice: message
+      redirect_to root_url, notice: "Signed in via #{@identity.provider.titleize}!"
+    elsif user = User.confirm_via_omniauth(@auth)
+      sign_in user
+      redirect_to root_url, notice: "Signed in via #{@identity.provider.titleize}! Confirmed email: #{user.email}!"
     else
-      user = User.from_omniauth(@auth)
+      user = User.create_from_omniauth(@auth)
       if user.persisted?
         @identity.link_with!(user)
         sign_in_and_redirect user, event: :authentication #this will throw if user is not activated

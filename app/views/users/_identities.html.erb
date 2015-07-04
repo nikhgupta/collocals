@@ -2,9 +2,7 @@
   <h4>Add a new identity:</h4>
   <ul>
     <% Devise.omniauth_configs.keys.each do |provider| %>
-      <li><%= link_to fa_provider_icon(provider, size: 4),
-        user_omniauth_authorize_path(provider: provider),
-        class: "icon-#{provider}" %></li>
+      <li><%= fa_add_provider_icon provider %></li>
     <% end %>
   </ul>
 </div>

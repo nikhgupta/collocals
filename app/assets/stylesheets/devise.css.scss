@@ -1,0 +1,12 @@
+form {
+  .field_with_errors {
+    color: red;
+    display: inline;
+  }
+}
+#error_explanation {
+  h2 {
+    font-size: 1.2em;
+    color: red;
+  }
+}

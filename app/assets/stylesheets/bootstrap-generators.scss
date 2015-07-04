@@ -1,6 +1,8 @@
-@import "bootstrap-variables.scss";
+@import "flat-ui/variables";
+// @import "bootstrap-variables.scss";
 @import "bootstrap-sprockets.scss";
 @import "bootstrap.scss";
+@import 'flat-ui';
 
 body {
   padding-top: $navbar-height + 10px;
@@ -20,4 +22,23 @@ input[type="radio"], input[type="checkbox"] {
   width: initial;
   height: initial;
   margin-top: 7px;
+}
+
+#new_user {
+  float: left;
+  border-top: 2px solid #ccc;
+  border-right: 2px solid #ccc;
+  @extend .col-lg-4;
+  @extend .col-md-5;
+  @extend .col-sm-6;
+  @extend .col-xs-12;
+  input:not([type=checkbox]):not([type=radio]), button, select, textarea {
+    width: 100%;
+  }
+}
+
+@media(max-width: $screen-xs-max){
+  .devise-buttons {
+    margin-top: 20px;
+  }
 }

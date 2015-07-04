@@ -15,4 +15,17 @@ module ApplicationHelper
            end
     fa_brand_icon provider, { size: 2, icon: icon }.merge(options)
   end
+
+  def fa_button icon, url, text: nil
+    text = text ? " #{text}" : ""
+    text = fa_icon(icon, class: "fa-2x") + text
+    link_to text, url, class: "btn btn-block btn-social btn-default btn-action"
+  end
+
+  def fa_provider_button provider, resource: resource_name, icon: false
+    text = icon.blank? ? " Sign in with #{provider.to_s.titleize}" : ""
+    text = fa_provider_icon(provider) + text
+    url  = omniauth_authorize_path(resource, provider)
+    link_to text, url, class: "btn btn-social#{icon ? "-icon" : ""} btn-#{provider} btn-block"
+  end
 end

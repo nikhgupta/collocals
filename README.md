@@ -1,12 +1,15 @@
 Collocals
 =========
 
-This is a short description of your app. You MUST replace it, before
-you even think about pushing this application to Github.
+> Of, from or in the same place as another.
 
-## TODO
+## TODOs
 
-- TODO: Update the README.
+### Users
+- TODO: Allow users to login without confirming, and show a link to
+  confirm on home page when they login.
+- TODO: `Forgot password?` link should only appear when user logs in
+  incorrectly multiple times.
 
 ## Notes
 

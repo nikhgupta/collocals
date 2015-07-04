@@ -1,10 +1,11 @@
 Given /^I sign ?up with email "(.*?)" and password "(.*?)"$/ do |email, password|
   visit new_user_registration_path
-  fill_in('user_name', with: "Test User") if find_field('Name').value.blank?
-  fill_in 'user_email', with: email
-  fill_in 'user_password', with: password
-  fill_in 'user_password_confirmation', with: password
+  fill_in 'Email', with: email
+  fill_in 'Password', with: password
+  fill_in 'Password confirmation', with: password
+  fill_in 'Name', with: "Test User" if find_field('Name').value.blank?
   click_button "Sign up"
+  step "I should be on the home page"
 end
 
 Then /^user with email "(.*?)" should( not)? (exist|be confirmed)$/ do |email, negate, status|

@@ -3,7 +3,11 @@ Given /^(?:|I )(?:am on|go to) (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 Then /^(?:|I )should( not)? be on (.+)$/ do |negate, page_name|
-  expect(page.current_path == path_to(page_name)).to eq(!negate)
+  if !negate
+    expect(page.current_path).to eq(path_to(page_name))
+  else
+    expect(page.current_path).not_to eq(path_to(page_name))
+  end
 end
 When /^(?:|I )click on "(.*?)"$/ do |link|
   case

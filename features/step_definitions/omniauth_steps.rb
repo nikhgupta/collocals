@@ -5,8 +5,7 @@ When /^I click to add provider "(.*?)" in my profile$/ do |provider|
 end
 When /^I sign in with provider "(.*?)"$/ do |provider|
   step 'I go to the login page'
-  step "I should see link with text \"Sign in with #{provider.titleize}\""
-  step "I click on \"Sign in with #{provider.titleize}\""
+  find("a.btn-#{provider}").click
 end
 Given /( not)? signed in with provider "(.*?)" before$/ do |negate, provider|
   non_email_sharing_providers = %w[twitter]

@@ -11,7 +11,6 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe ApplicationHelper, type: :helper do
-  # pending "add some examples to (or delete) #{__FILE__}"
   describe "#fa_brand_icon" do
     it "produces html for colored brand icon by name" do
       actual = helper.fa_brand_icon('lastfm')
@@ -66,6 +65,40 @@ RSpec.describe ApplicationHelper, type: :helper do
         actual = helper.fa_provider_icon('foursquare')
         expect(actual).to have_selector('i.fa-foursquare.fa-foursquare-colored')
       end
+    end
+  end
+  describe "#fa_button" do
+    it "produces html for icon button for fontawesome icon" do
+      actual = helper.fa_button 'lastfm', "/test"
+      expect(actual).to have_text('')
+      expect(actual).to have_selector("[href='/test']")
+      expect(actual).to have_selector('a.btn.btn-block.btn-social.btn-default.btn-action')
+      expect(actual).to have_selector('i.fa.fa-2x.fa-lastfm')
+    end
+
+    it "produces html for button for fontawesome icon with text" do
+      actual = helper.fa_button 'lastfm', "/test", text: "some text"
+      expect(actual).to have_text(' some text')
+      expect(actual).to have_selector("[href='/test']")
+      expect(actual).to have_selector('a.btn.btn-block.btn-social.btn-default.btn-action')
+      expect(actual).to have_selector('i.fa.fa-2x.fa-lastfm')
+    end
+  end
+  describe "#fa_provider_button" do
+    it "produces html for button icon for provider" do
+      actual = helper.fa_provider_button 'google', resource: :user
+      expect(actual).to have_text('Sign in with Google')
+      expect(actual).to have_selector("[href='/users/auth/google']")
+      expect(actual).to have_selector('a.btn.btn-block.btn-social.btn-google')
+      expect(actual).to have_selector('a i.fa.fa-2x.fa-google-plus-square.fa-google-colored')
+    end
+
+    it "produces html for button for fontawesome icon with text" do
+      actual = helper.fa_provider_button 'google', resource: :user, icon: true
+      expect(actual).to have_text('')
+      expect(actual).to have_selector("[href='/users/auth/google']")
+      expect(actual).to have_selector('a.btn.btn-block.btn-social-icon.btn-google')
+      expect(actual).to have_selector('a i.fa.fa-2x.fa-google-plus-square.fa-google-colored')
     end
   end
 end

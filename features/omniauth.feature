@@ -4,7 +4,7 @@ Feature: Omniauth Login and Registration
   As a user
   I want to login (or signup) using Social Providers
 
-  @facebook
+  @facebook @focus
   Scenario: Registering with Facebook
     Given I am not logged in
     And   I have not signed in with provider "facebook" before
@@ -13,6 +13,10 @@ Feature: Omniauth Login and Registration
     Then  I should be on the home page
     And   I should see "authenticated from Facebook"
     And   user with email "testuser@facebook.com" should be confirmed
+    When  I go to the edit profile page
+    Then  I should see field "Name" prefilled with "Test Facebook User"
+    And   I should see field "Image" prefilled with "http://url.to/profile-image.jpg"
+    And   I should see link to "https://facebook.com/testuser"
 
   @facebook
   Scenario: Login with Facebook
@@ -51,6 +55,10 @@ Feature: Omniauth Login and Registration
     Then  I should be on the home page
     And   I should see "authenticated from Foursquare"
     And   user with email "testuser@foursquare.com" should be confirmed
+    When  I go to the edit profile page
+    Then  I should see field "Name" prefilled with "Test Foursquare User"
+    And   I should see field "Image" prefilled with "http://url.to/128x128/profile-image.jpg"
+    And   I should see link to "https://foursquare.com/user/12345"
 
   @foursquare
   Scenario: Login with Foursquare
@@ -70,6 +78,10 @@ Feature: Omniauth Login and Registration
     Then  I should be on the home page
     And   I should see "authenticated from Github"
     And   user with email "testuser@github.com" should be confirmed
+    When  I go to the edit profile page
+    Then  I should see field "Name" prefilled with "Test Github User"
+    And   I should see field "Image" prefilled with "http://url.to/profile-image.jpg"
+    And   I should see link to "https://github.com/testusername"
 
   @github
   Scenario: Login with Github
@@ -89,6 +101,10 @@ Feature: Omniauth Login and Registration
     Then  I should be on the home page
     And   I should see "authenticated from Google"
     And   user with email "testuser@google.com" should be confirmed
+    When  I go to the edit profile page
+    Then  I should see field "Name" prefilled with "Test Google User"
+    And   I should see field "Image" prefilled with "http://url.to/profile-image.jpg"
+    And   I should see link to "http://plus.google.com/some-profile-id"
 
   @google
   Scenario: Login with Google
@@ -108,6 +124,10 @@ Feature: Omniauth Login and Registration
     Then  I should be on the home page
     And   I should see "authenticated from Linkedin"
     And   user with email "testuser@linkedin.com" should be confirmed
+    When  I go to the edit profile page
+    Then  I should see field "Name" prefilled with "Test Linkedin User"
+    And   I should see field "Image" prefilled with "http://url.to/profile-image.jpg"
+    And   I should see link to "https://www.linkedin.com/in/testusername"
 
   @linkedin
   Scenario: Login with Linkedin
@@ -136,6 +156,10 @@ Feature: Omniauth Login and Registration
     When  I sign in with provider "twitter"
     Then  I should be on the home page
     And   I should see "Signed in via Twitter!"
+    When  I go to the edit profile page
+    Then  I should see field "Name" prefilled with "Test Twitter User"
+    And   I should see field "Image" prefilled with "http://url.to/profile-image.jpg"
+    And   I should see link to "https://twitter.com/testusername"
 
   @facebook @focus
   Scenario: Confirming email address with Identity

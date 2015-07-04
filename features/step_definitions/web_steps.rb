@@ -21,6 +21,14 @@ Then /^(?:|I )should( not)? see "(.*?)"$/ do |negate, text|
     expect(page).not_to have_content(text)
   end
 end
+Then /^(?:|I )should( not)? see link to "(.*?)"$/ do |negate, link|
+  find_link = find(:xpath, "//a[@href='#{link}']")
+  if negate
+    expect{ find_link }.to raise_error(Capybara::ElementNotFound)
+  else
+    expect( find_link ).to be_present
+  end
+end
 Then /^(?:|I )should( not)? see link with text "(.*?)"$/ do |negate, link|
   if !negate
     expect(page).to have_link(link)

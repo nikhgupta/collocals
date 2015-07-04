@@ -11,7 +11,10 @@ class User < ActiveRecord::Base
   def self.confirm_via_omniauth(auth)
     auth = Extractor::Base.load(auth)
     find_by(email: auth.email).tap do |user|
-      user.confirm if user.present?
+      if user.present?
+        user.confirm
+        user.merge_data_from_omniauth(auth).save
+      end
     end
   end
 
@@ -20,7 +23,7 @@ class User < ActiveRecord::Base
     new(email: auth.email, name: auth.name).tap do |user|
       user.password = user.password_confirmation = Devise.friendly_token[0,20]
       user.skip_confirmation! if user.email.present?
-      user.save
+      user.merge_data_from_omniauth(auth).save
     end
   end
 
@@ -28,15 +31,21 @@ class User < ActiveRecord::Base
     super.tap do |user|
       auth = session["devise.oauth_data"]
       if auth.present?
-        auth = Hash[auth.map{|k,v| [k.to_s,v]}]
-        user.email = auth["email"] if user.email.blank?
-        user.name  = auth["name"]  if user.name.blank?
-        user.image = auth["image"] if user.image.blank?
-        user.gender = auth["gender"] if user.gender.blank?
-        user.timezone_offset = auth["timezone_offset"] if user.timezone_offset.blank?
-        user.language = auth["language"] if user.language.blank?
+        user.merge_data_from_omniauth(auth)
         user.identities.build auth
       end
     end
+  end
+
+  def merge_data_from_omniauth(auth)
+    auth = auth.is_a?(Extractor::Base) ? auth.attributes_data : auth
+    auth = Hash[auth.map{|k,v| [k.to_s,v]}]
+    self.email    = auth["email"] if self.email.blank?
+    self.name     = auth["name"]  if self.name.blank?
+    self.image    = auth["image"] if self.image.blank?
+    self.gender   = auth["gender"] if self.gender.blank?
+    self.language = auth["language"] if self.language.blank?
+    self.timezone_offset = auth["timezone_offset"] if self.timezone_offset.blank?
+    self
   end
 end

@@ -15,14 +15,14 @@ class Identity < ActiveRecord::Base
     find_by Extractor::Base.load(auth).signature
   end
 
-  def self.create_with_omniauth(auth)
-    create Extractor::Base.load(auth).attributes_data
+  def self.initialize_with_omniauth(auth)
+    new Extractor::Base.load(auth).attributes_data
   end
 
-  def self.find_or_create_with_omniauth(auth)
+  def self.find_or_initialize_with_omniauth(auth)
     identity = find_with_omniauth auth
     return identity if identity.present?
-    create_with_omniauth auth
+    initialize_with_omniauth auth
   end
 
   def linked?

@@ -3,7 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def all(auth = nil)
     @auth ||= request.env['omniauth.auth']
-    @identity = Identity.find_or_create_with_omniauth(@auth)
+    @identity = Identity.find_or_initialize_with_omniauth(@auth)
     link_identity_with_signed_in_user || login_or_create_user_from_identity
   end
 

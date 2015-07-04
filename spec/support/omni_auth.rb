@@ -96,7 +96,7 @@ OmniAuth.config.mock_auth[:linkedin] = OmniAuth::AuthHash.new(
     email: "testuser@linkedin.com",
     image: "http://url.to/profile-image.jpg",
     urls: {
-      public_profile: "https://www.linkedin.com/in/tesusername"
+      public_profile: "https://www.linkedin.com/in/testusername"
     }
   },
   credentials: {

@@ -10,20 +10,22 @@ RSpec.describe Identity, type: :model do
   it { is_expected.to validate_presence_of(:user) }
   it { is_expected.to validate_uniqueness_of(:uid).scoped_to(:provider).with_message('already exists for this provider') }
 
-  it 'finds or creates identity with given omniauth data' do
+  it 'finds or initializes identity with given omniauth data' do
     identity = described_class.find_with_omniauth(@auth)
     expect(identity).to be_nil
 
-    identity = described_class.find_or_create_with_omniauth(@auth)
+    identity = create(:identity, user: create(:user), provider: "facebook", uid: "12345")
+    expect(described_class.find_with_omniauth(@auth)).to eq(identity)
+    expect(described_class.find_or_initialize_with_omniauth(@auth)).to eq(identity)
+
+    identity.delete
+    identity = described_class.find_or_initialize_with_omniauth(@auth)
+    expect(identity.user).to be_nil
+    expect(identity).to be_new_record
     expect(identity).not_to be_valid
     expect(identity).not_to be_persisted
     expect(identity.provider).to eq("facebook")
-    expect(identity.user).to be_nil
-
-    create(:user, email: @auth['info']['email'])
-    identity = described_class.find_or_create_with_omniauth(@auth)
-    expect(identity).to be_valid
-    expect(identity).to be_persisted
+    expect(identity.errors[:user]).to eq(["can't be blank"])
   end
 
   it "checks if identity is already linked with a user" do

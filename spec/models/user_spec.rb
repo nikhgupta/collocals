@@ -4,10 +4,10 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to have_many(:identities) }
 
-  describe ".from_omniauth" do
+  describe ".create_from_omniauth" do
     it "creates a new user from omniauth data" do
       auth = OmniAuth.config.mock_auth[:facebook]
-      record = described_class.from_omniauth(auth)
+      record = described_class.create_from_omniauth(auth)
       expect(record).to be_a(User)
       expect(record).to be_persisted
       expect(record.email).to eq(auth["info"]["email"])

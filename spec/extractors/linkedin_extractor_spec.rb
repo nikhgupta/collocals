@@ -14,7 +14,7 @@ describe LinkedinExtractor do
       username: nil,
       gender: nil,
       timezone_offset: 0,
-      url: "https://www.linkedin.com/in/tesusername",
+      url: "https://www.linkedin.com/in/testusername",
       language: nil,
       credentials: {
         token: "some-token" * 100,

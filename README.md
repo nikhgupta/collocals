@@ -22,3 +22,4 @@ you even think about pushing this application to Github.
   - Restart server.
   - Do a test run to capture auth data.
   - Complete implementation of extractor.
+  - Add tests for RSpec and Cucumber.
